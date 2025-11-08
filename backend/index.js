@@ -9,8 +9,11 @@ const cors = require('cors');
 const express = require("express");
 const mongoose = require("mongoose");
 
+const authRouter = require("./routes/auth");
+
+
 // INIT
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 4000;
 const app = express();
 
 // Try multiple possible environment variable names
@@ -25,15 +28,18 @@ if (!DB) {
 
 console.log('MongoDB URL:', DB.substring(0, 20) + '...'); // Show partial URL for security
 
-// middleware
 app.use(cors({
-    origin: '*',
-    methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
-    allowedHeaders: ['Content-Type', 'Authorization', 'x-auth-token'],
-    credentials: true
+  origin: [
+    'http://localhost:4000',
+    'http://10.0.2.2:4000',
+    'http://localhost', 
+    'http://10.0.2.2'
+  ],
+  credentials: true
 }));
 
 app.use(express.json());
+app.use(authRouter);
 
 // Connection
 mongoose.connect(DB).then(() => {
@@ -46,6 +52,7 @@ app.get('/', (req, res) => {
     res.send('Hello from Express!');
 });
 
-app.listen(PORT, () => { 
-    console.log(`connected at port ${PORT}`);
+app.listen(4000, '0.0.0.0', () => { // Listen on all interfaces
+  console.log('Server running on http://localhost:4000');
+  console.log('Server also accessible on http://10.0.2.2:4000 (for Android emulator)');
 });

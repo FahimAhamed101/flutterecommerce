@@ -1,0 +1,60 @@
+const mongoose = require("mongoose");
+
+const userSchema = mongoose.Schema({
+    name: {
+        required: true,
+        type: String,
+        trim: true,
+    },
+    email: {
+        required: true,
+        type: String,
+        trim: true,
+        validate: {
+            validator: (value) => {
+                const re =
+                    /^(([^<>()[\]\.,;:\s@\"]+(\.[^<>()[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i;
+                return value.match(re);
+            },
+            message: "Please enter a valid email address",
+        },
+    },
+    password: {
+        required: true,
+        type: String,
+        
+    },
+    address: {
+        type: String,
+        default: "",
+    },
+    type: {
+        type: String,
+        enum: ['user', 'seller', 'admin'],
+        default: "user",
+    },
+    shopName: {
+        type: String,
+        default: "",
+    },
+    shopDescription: {
+        type: String,
+        default: "",
+    },
+    shopAvatar: {
+        type: String,
+        default: "",
+    },
+  
+    followers: [{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'User'
+    }],
+    following: [{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'User'
+    }],
+});
+
+const User = mongoose.model("User", userSchema);
+module.exports = User;

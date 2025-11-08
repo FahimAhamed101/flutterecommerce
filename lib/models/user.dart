@@ -1,57 +1,110 @@
+import 'dart:convert';
+
 class User {
   final String id;
-  final String email;
   final String name;
-  final String? avatar;
-  final String? phone;
-  final String? address;
+  final String email;
+  final String password;
+  final String address;
+  final String type;
+  final String token;
+
+  final String shopName;
+  final String shopDescription;
+  final String shopAvatar;
+  final List<String> followers; // Thêm field mới
+  final List<String> following; // Thêm field mới
 
   User({
     required this.id,
-    required this.email,
     required this.name,
-    this.avatar,
-    this.phone,
-    this.address,
+    required this.email,
+    required this.password,
+    required this.address,
+    required this.type,
+    required this.token,
+
+    this.shopName = '',
+    this.shopDescription = '',
+    this.shopAvatar = '',
+    this.followers = const [], // Default value
+    this.following = const [], // Default value
   });
 
-  factory User.fromJson(Map<String, dynamic> json) {
-    return User(
-      id: json['id'],
-      email: json['email'],
-      name: json['name'],
-      avatar: json['avatar'],
-      phone: json['phone'],
-      address: json['address'],
-    );
-  }
-
-  Map<String, dynamic> toJson() {
+  Map<String, dynamic> toMap() {
     return {
-      'id': id,
-      'email': email,
+      '_id': id,
       'name': name,
-      'avatar': avatar,
-      'phone': phone,
+      'email': email,
+      'password': password,
       'address': address,
+      'type': type,
+      'token': token,
+
+      'shopName': shopName,
+      'shopDescription': shopDescription,
+      'shopAvatar': shopAvatar,
+      'followers': followers,
+      'following': following,
     };
   }
 
+  factory User.fromMap(Map<String, dynamic> map) {
+    return User(
+      id: map['_id'] ?? '',
+      name: map['name'] ?? '',
+      email: map['email'] ?? '',
+      password: map['password'] ?? '',
+      address: map['address'] ?? '',
+      type: map['type'] ?? '',
+      token: map['token'] ?? '',
+
+      shopName: map['shopName'] ?? '',
+      shopDescription: map['shopDescription'] ?? '',
+      shopAvatar: map['shopAvatar'] ?? '',
+      followers: List<String>.from(map['followers'] ?? []), // Convert followers
+      following: List<String>.from(map['following'] ?? []), // Convert following
+    );
+  }
+
+  String toJson() => json.encode(toMap());
+
+  factory User.fromJson(String source) => User.fromMap(json.decode(source));
+
   User copyWith({
     String? id,
-    String? email,
     String? name,
-    String? avatar,
-    String? phone,
+    String? email,
+    String? password,
     String? address,
+    String? type,
+    String? token,
+
+    String? shopName,
+    String? shopDescription,
+    String? shopAvatar,
+    List<String>? followers,
+    List<String>? following,
   }) {
     return User(
       id: id ?? this.id,
-      email: email ?? this.email,
       name: name ?? this.name,
-      avatar: avatar ?? this.avatar,
-      phone: phone ?? this.phone,
+      email: email ?? this.email,
+      password: password ?? this.password,
       address: address ?? this.address,
+      type: type ?? this.type,
+      token: token ?? this.token,
+
+      shopName: shopName ?? this.shopName,
+      shopDescription: shopDescription ?? this.shopDescription,
+      shopAvatar: shopAvatar ?? this.shopAvatar,
+      followers: followers ?? this.followers,
+      following: following ?? this.following,
     );
+  }
+
+  // Helper method để kiểm tra xem user có đang follow một seller không
+  bool isFollowing(String sellerId) {
+    return following.contains(sellerId);
   }
 }
