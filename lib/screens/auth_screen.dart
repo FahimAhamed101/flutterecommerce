@@ -146,7 +146,7 @@ class _AuthScreenState extends State<AuthScreen> {
               const SizedBox(height: 50), // Increased top spacing
               // Logo Amazon
               Image.asset(
-                'assets/images/logo_3.png',
+                'assets/images/mobiles.jpeg',
                 height: 250,
                 //color: Colors.white,
               ),

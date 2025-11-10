@@ -5,10 +5,18 @@ const { Product } = require("../models/product");
 const ratingSchema = require("../models/rating");
 
 // /api/products?category=TV (lenh get tham so nam trong link)
-productRouter.get("/api/products", auth, async (req, res) => {
+productRouter.get("/api/products", async (req, res) => {
     try {
-        const products = await Product.find({ category: req.query.category })
-            .populate('sellerId', 'shopName shopAvatar');
+        const { category } = req.query;
+        
+        // Build query object
+        const query = {};
+        if (category) {
+            query.category = category;
+        }
+        
+        const products = await Product.find(query)
+            .populate('sellerId', 'shopName shopAvatar avatarUrl');
         res.json(products);
     } catch (e) {
         res.status(500).json({ error: e.message });

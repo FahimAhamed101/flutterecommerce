@@ -8,8 +8,11 @@ require('dotenv').config({ path: path.resolve(__dirname, './.env') });
 const cors = require('cors');
 const express = require("express");
 const mongoose = require("mongoose");
-
 const authRouter = require("./routes/auth");
+
+const productRouter = require("./routes/product");
+
+const sellerRouter = require("./routes/seller");
 
 
 // INIT
@@ -40,6 +43,10 @@ app.use(cors({
 
 app.use(express.json());
 app.use(authRouter);
+app.use(sellerRouter);
+
+app.use(productRouter);
+
 
 // Connection
 mongoose.connect(DB).then(() => {

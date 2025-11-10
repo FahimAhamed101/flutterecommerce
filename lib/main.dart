@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutterecommerce/providers/product_provider.dart';
 import 'package:flutterecommerce/providers/user_provider.dart';
 import 'package:flutterecommerce/router.dart';
 import 'package:flutterecommerce/screens/Admin/admin_screen.dart';
@@ -13,10 +14,9 @@ void main() {
   runApp(
     MultiProvider(
       providers: [
-        ChangeNotifierProvider(
-          create: (context) => UserProvider(),
-        ),
-
+        ChangeNotifierProvider(create: (_) => UserProvider()),
+        ChangeNotifierProvider(create: (_) => ProductProvider()),
+        // Add other providers as needed
       ],
       child: const MyApp(),
     ),

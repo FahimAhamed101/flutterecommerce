@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 
 import '../constants/global_variables.dart';
-
+import 'carousel_image.dart';
+import 'deal_of_day.dart';
 
 
 class HomeScreen extends StatefulWidget {
@@ -90,6 +91,18 @@ class _HomeScreenState extends State<HomeScreen> {
               ),
             ],
           ),
+        ),
+      ),
+      body: const SingleChildScrollView(
+        child: Column(
+          children: [
+
+            SizedBox(height: 10),
+
+            SizedBox(height: 10),
+            CarouselImage(),
+            DealOfDay(),
+          ],
         ),
       ),
 
