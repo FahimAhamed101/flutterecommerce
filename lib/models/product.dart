@@ -86,7 +86,7 @@ class Product {
     };
   }
 
-// Chuyển đổi từ Map thành đối tượng Product
+
   factory Product.fromMap(Map<String, dynamic> map) {
     return Product(
       name: map['name'] ?? '',

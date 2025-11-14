@@ -2,6 +2,7 @@ import 'dart:async';
 
 
 import 'package:flutter/material.dart';
+import 'package:flutterecommerce/screens/product_details/product_details_screen.dart';
 import 'package:provider/provider.dart';
 
 import '../auth/services/home_services.dart';
@@ -102,7 +103,11 @@ class _DealOfDayState extends State<DealOfDay> {
             children: [
               InkWell(
                 onTap: () {
-                  // Add navigation here
+                  Navigator.pushNamed(
+                    context,
+                    ProductDetailsScreen.routeName,
+                    arguments: product,
+                  );
                 },
                 child: ClipRRect(
                   borderRadius: const BorderRadius.vertical(top: Radius.circular(16)),
@@ -213,7 +218,11 @@ class _DealOfDayState extends State<DealOfDay> {
               elevation: 4,
               child: InkWell(
                 onTap: () {
-                  // Add navigation here
+                  Navigator.pushNamed(
+                    context,
+                    ProductDetailsScreen.routeName,
+                    arguments: product,
+                  );
                 },
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
