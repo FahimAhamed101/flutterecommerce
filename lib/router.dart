@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutterecommerce/screens/Admin/admin_screen.dart';
 import 'package:flutterecommerce/screens/auth_screen.dart';
 import 'package:flutterecommerce/screens/product_details/product_details_screen.dart';
+import 'package:flutterecommerce/screens/widgets/bottom_bar.dart';
 
 import 'models/product.dart';
 
@@ -21,6 +23,18 @@ Route<dynamic> generateRoute(RouteSettings routeSettings) {
         builder: (_) => ProductDetailsScreen(
           product: product,
         ),
+      );
+
+
+    case AdminScreen.routeName:
+      return MaterialPageRoute(
+        settings: routeSettings,
+        builder: (_) => const AdminScreen(),
+      );
+    case BottomBar.routeName:
+      return MaterialPageRoute(
+        settings: routeSettings,
+        builder: (_) => const BottomBar(),
       );
     default:
       return MaterialPageRoute(

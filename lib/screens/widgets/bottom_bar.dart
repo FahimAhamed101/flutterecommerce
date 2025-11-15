@@ -5,6 +5,7 @@ import '../../constants/global_variables.dart';
 
 import '../../providers/user_provider.dart';
 import 'package:badges/badges.dart' as badges;
+import '../account_screen.dart';
 import '../home_screen.dart';
 
 class BottomBar extends StatefulWidget {
@@ -21,7 +22,7 @@ class _BottomBarState extends State<BottomBar> {
   double bottomBarBorderWidth = 5;
   List<Widget> pages = [
     const HomeScreen(),
-
+    const AccountScreen(),
   ];
   void updatePage(int page) {
     setState(() {
