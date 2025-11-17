@@ -23,17 +23,7 @@ productRouter.get("/api/products", async (req, res) => {
     }
 });
 
-// search product
-productRouter.get("/api/products/search/:name", auth, async (req, res) => {
-    try {
-        const products = await Product.find({
-            name: { $regex: req.params.name, $options: "i" },
-        }).populate('sellerId', 'shopName shopAvatar');
-        res.json(products);
-    } catch (e) {
-        res.status(500).json({ error: e.message });
-    }
-});
+
 
 // Rating product and Update avgRating
 productRouter.post("/api/rate-product", auth, async (req, res) => {
